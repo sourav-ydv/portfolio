@@ -38,10 +38,10 @@ nav a{transition:opacity .2s}nav a:hover{opacity:.7}
 @media(min-width:768px){.bottom{padding:0 2.5rem 2.5rem}}
 .bottom p{font-weight:300;text-transform:uppercase;letter-spacing:.03em;line-height:1.25;font-size:clamp(.75rem,1.4vw,1.5rem);max-width:170px}
 @media(min-width:640px){.bottom p{max-width:240px}}
-.portrait{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:10;width:340px}
+.portrait{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:10;width:340px;pointer-events:none}
 @media(min-width:640px){.portrait{top:auto;bottom:0;translate:-50% 0;width:440px}}
-@media(min-width:768px){.portrait{width:580px}}
-@media(min-width:1024px){.portrait{width:min(780px,80vh)}}
+@media(min-width:768px){.portrait{width:640px}}
+@media(min-width:1024px){.portrait{width:min(900px,104vh)}}
 .magnet{will-change:transform}
 .avatar{aspect-ratio:4/5;border-radius:50% 50% 0 0/38% 38% 0 0;position:relative;overflow:hidden;background:linear-gradient(160deg,#B600A8 0%,#7621B0 50%,#BE4C00 110%);display:grid;place-items:center}
 .avatar span{font-size:30vw;font-weight:900;color:rgba(255,255,255,.14);letter-spacing:-.05em}
@@ -126,7 +126,7 @@ nav a{transition:opacity .2s}nav a:hover{opacity:.7}
 .tl{margin-top:3rem}.tl .r{display:grid;gap:.6rem;padding:2rem 0;border-top:1px solid var(--line)}@media(min-width:768px){.tl .r{grid-template-columns:13rem 1fr;gap:3rem}}
 .tl time{font-weight:300;opacity:.7}.tl h3{font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}.tl small{font-weight:300;opacity:.7;font-size:1rem}.tl ul{margin:.8rem 0 1rem 1.1rem;font-weight:300;line-height:1.6}
 .sk{display:grid;gap:1rem;margin-top:3rem}@media(min-width:768px){.sk{grid-template-columns:1fr 1fr}}.grp{border:1px solid var(--line);border-radius:28px;padding:1.4rem}.grp h4{font-weight:500;margin-bottom:.8rem;font-size:1.1rem}
-.avatar img{object-position:center top}.avatar.cut{background:none;border-radius:0;aspect-ratio:1}.avatar.cut span{display:none}.avatar.cut img{object-fit:contain;object-position:center bottom;mix-blend-mode:screen}
+.avatar img{object-position:center top}.avatar.cut{background:none;border-radius:0;aspect-ratio:1;margin-bottom:-12%}.avatar.cut span{display:none}.avatar.cut img{object-fit:contain;object-position:center bottom;mix-blend-mode:screen}
 .stack:last-child{height:auto}
 .grid{grid-template-columns:1fr}.stats{min-height:0}.tall p{margin-bottom:.9rem}
 @media(min-width:768px){.grid>.col{display:grid;grid-template-columns:60fr 40fr;gap:1rem}.tall{grid-row:span 2}.stats{align-content:center}}
