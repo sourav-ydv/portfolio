@@ -126,7 +126,7 @@ nav a{transition:opacity .2s}nav a:hover{opacity:.7}
 .tl{margin-top:3rem}.tl .r{display:grid;gap:.6rem;padding:2rem 0;border-top:1px solid var(--line)}@media(min-width:768px){.tl .r{grid-template-columns:13rem 1fr;gap:3rem}}
 .tl time{font-weight:300;opacity:.7}.tl h3{font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}.tl small{font-weight:300;opacity:.7;font-size:1rem}.tl ul{margin:.8rem 0 1rem 1.1rem;font-weight:300;line-height:1.6}
 .sk{display:grid;gap:1rem;margin-top:3rem}@media(min-width:768px){.sk{grid-template-columns:1fr 1fr}}.grp{border:1px solid var(--line);border-radius:28px;padding:1.4rem}.grp h4{font-weight:500;margin-bottom:.8rem;font-size:1.1rem}
-.avatar img{object-position:center top}.avatar.cut{background:none;border-radius:0}.avatar.cut span{display:none}.avatar.cut img{object-fit:contain;object-position:center bottom}
+.avatar img{object-position:center top}.avatar.cut{background:none;border-radius:0}.avatar.cut span{display:none}.avatar.cut img{object-fit:contain;object-position:center bottom;mix-blend-mode:screen}
 .stack:last-child{height:auto}.card{transition:filter .15s linear}
 /* research + contact */
 .research{max-width:64rem;margin:5rem auto 0;border:2px solid var(--ink);border-radius:40px;padding:2rem}
@@ -149,7 +149,7 @@ footer{font-weight:300;font-size:.8rem;opacity:.5;padding-bottom:1.5rem;text-ali
     <a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
   </nav>
   <div class="hero-wrap"><h1 class="hero-heading fade" style="--d:.15s;--y:40px">Hi, i&apos;m sourav</h1></div>
-  <div class="portrait fade" style="--d:.6s;--y:30px"><div class="magnet" id="magnet"><div class="avatar"><span>SY</span><img src="photo.png" alt="Sourav Yadav" onload="if(this.src.endsWith('.png'))this.parentNode.classList.add('cut')" onerror="this.onerror=function(){this.remove()};this.src='photo.jpg'"></div></div></div>
+  <div class="portrait fade" style="--d:.6s;--y:30px"><div class="magnet" id="magnet"><div class="avatar"><span>SY</span><img src="photo.png" alt="Sourav Yadav" onload="this.parentNode.classList.add('cut')" onerror="this.onerror=function(){this.remove()};this.src='photo.jpg'"></div></div></div>
   <div class="bottom">
     <p class="fade" style="--d:.35s;--y:20px">an ml &amp; ai engineer building explainable models and llm-powered products</p>
     <a class="btn fade" style="--d:.5s;--y:20px" href="#contact">Contact Me</a>
@@ -287,7 +287,7 @@ function onScroll(){
  chars.forEach((c,i)=>c.style.opacity=.2+.8*clamp(p*n-i));
  // stacking cards
  const k=cards.length;
- cards.forEach((c,i)=>{const wr=c.parentNode.getBoundingClientRect(),q=clamp((80-wr.top)/wr.height)*(i<k-1),t=1-(k-1-i)*.05;c.style.transform=`scale(${1-(1-t)*q})`;c.style.filter=`brightness(${1-.45*q})`});
+ cards.forEach((c,i)=>{const wr=c.parentNode.getBoundingClientRect(),q=clamp((80-wr.top)/wr.height)*(i<k-1),t=1-(k-1-i)*.05,b=Math.min(1,(vh-96-i*28)/c.offsetHeight);c.style.transform=`scale(${b*(1-(1-t)*q)})`;c.style.filter=`brightness(${1-.45*q})`});
 }
 let tick=false;
 addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(()=>{onScroll();tick=false})}},{passive:true});
