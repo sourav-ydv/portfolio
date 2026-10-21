@@ -211,12 +211,13 @@ footer{font-weight:300;font-size:.8rem;opacity:.5;padding-bottom:1.5rem;text-ali
 const $=s=>document.querySelector(s);
 // ---- data
 const R1=["Python","PyTorch","Scikit-learn","XGBoost","SHAP","Pandas","NumPy","TensorFlow","SQL","C++","Jupyter"];
-const R2=["LangChain","LangGraph","RAG","FastAPI","PostgreSQL","Pydantic","Docker","React","Git","Render","Vercel"];
+const R2=["LangChain","LangGraph","RAG","FastAPI","PostgreSQL","Pydantic","Docker","React","Git","MCP","Pytest","Render","Vercel"];
 const SVC=[
 ["ML Modelling","Feature engineering, imbalanced-data training, ensembles and honest evaluation with scikit-learn, XGBoost and PyTorch."],
 ["LLM & RAG Apps","Retrieval pipelines and tool-calling agents with LangChain and LangGraph, with guardrails such as human approval before any action."],
-["Backend & APIs","FastAPI services with JWT auth, PostgreSQL storage and typed schemas, deployed on Render, Vercel and Streamlit Cloud."],
-["Explainable AI & Research","SHAP, knowledge-graph grounding and careful ablations. Co-authored research accepted at WABI 2026."]];
+["Agent Reliability & Testing","Fault injection, state-based safety checks and regression tests for tool-calling agents, so failures are measured instead of guessed."],
+["Backend & APIs","FastAPI services with JWT auth, PostgreSQL storage and typed schemas, plus MCP tool servers, with CI and deployment on Render, Vercel and Streamlit Cloud."],
+["Explainable AI & Research","SHAP, knowledge-graph grounding, careful ablations and honest statistics such as confidence intervals and significance tests. Co-authored research accepted at WABI 2026."]];
 const gh=u=>"https://github.com/sourav-ydv/"+u;
 const B=(a,w,c)=>`<div class="bar"><span>${a}</span><u style="--w:${w}%;${c?"--c:"+c:""}"></u></div>`;
 const V=[
@@ -225,6 +226,11 @@ const V=[
 `<div class="bub me">Delhi to Dimapur, 24-31 Oct, 15k excluding flights</div><div class="bub">Found 5 flights. IndiGo is about 9k each way.</div><div class="cf"><b>Confirmation needed</b><br>IndiGo, DEL to DMU, 24 Oct<div><em>Approve</em><em>Decline</em></div></div>`,
 `<div style="display:flex;gap:.4rem;flex-wrap:wrap"><span class="pill">Diabetes</span><span class="pill o">Heart</span><span class="pill o">Parkinson's</span></div><div class="bub">Glucose &nbsp; 120</div><div class="bub">BMI &nbsp; 26.4</div><span class="pill">Predict</span><div class="bub">Upload a report and HealthBot explains it in plain language.</div>`];
 const PRJ=[
+{h:200,cat:"AI Agent Reliability",name:"Havoc: Fault Injection for AI Agents",gh:gh("havoc"),live:"https://sourav-ydv.github.io/havoc/",
+ stats:[["411","fault-injection runs"],["8","state safety checks"],["48% → 10%","false refund claims"]],
+ tags:["Python","MCP","asyncio","SQLite","pytest","GitHub Actions","Gemini"],
+ d:"A chaos-testing tool for AI agents. It sits between an agent and its MCP tools, breaks them on purpose, and checks the final database state instead of trusting the agent's answer.",
+ l:["Injects 6 kinds of faults, including timeouts, partial results and prompt injections, and shrinks failing fault combinations with delta debugging","Found that pairs of faults did not break the tested agent more than single faults; only 1 failure truly needed both","Found false refund emails in 25-48% of failing runs; a one-rule prompt fix cut it to 0-10%","Offline regression cases, 320+ tests, CI on every push and a report page with replayable failures"]},
 {h:285,cat:"Machine Learning",name:"AI-Powered Fraud Detection System",gh:gh("fraud-detection-system"),live:"https://fraud-detection-system-wheat.vercel.app",
  stats:[["≈0.98","AUC-ROC"],["284K+","transactions"],["11","engineered features"]],
  tags:["XGBoost","Random Forest","Neural Net","SHAP","FastAPI","PostgreSQL","React"],
@@ -257,7 +263,7 @@ $("#stack").innerHTML=PRJ.map((p,i)=>`<div class="stack"><article class="card" s
 <div class="grid"><div class="col"><div class="col"><div class="blk stats">${p.stats.map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div>
 <div class="blk"><div class="tags">${p.tags.map(t=>`<i>${t}</i>`).join("")}</div></div></div>
 <div class="blk tall"><p>${p.d}</p><ul>${p.l.map(x=>`<li>${x}</li>`).join("")}</ul></div></div></div></article></div>`).join("");
-const SK=[["Languages",["Python","SQL","C++","C","JavaScript"]],["Data & ML",["Pandas","NumPy","Scikit-learn","XGBoost","PyTorch","TensorFlow","SHAP","Feature Engineering","Model Evaluation"]],["LLM / GenAI",["LLM APIs","Embeddings","RAG Pipelines","Prompt Engineering","LangChain","LangGraph"]],["Backend & Databases",["FastAPI","REST APIs","Pydantic","PostgreSQL","MongoDB","SQLite","SQLAlchemy"]],["Tools & Deployment",["Git","Docker","Jupyter","Render","Vercel"]]];
+const SK=[["Languages",["Python","SQL","C++","C","JavaScript"]],["Data & ML",["Pandas","NumPy","Scikit-learn","XGBoost","PyTorch","TensorFlow","SHAP","Feature Engineering","Model Evaluation","Statistical Testing"]],["LLM / GenAI",["LLM APIs","Embeddings","RAG Pipelines","Prompt Engineering","LangChain","LangGraph","MCP","Agent Evaluation","Fault Injection"]],["Backend & Databases",["FastAPI","REST APIs","Pydantic","PostgreSQL","MongoDB","SQLite","SQLAlchemy","asyncio"]],["Tools & Deployment",["Git","Docker","Jupyter","pytest","GitHub Actions","GitHub Pages","Render","Vercel"]]];
 $("#sk").innerHTML=SK.map(g=>`<div class="grp fade"><h4>${g[0].replace("&","&amp;")}</h4><div class="tags">${g[1].map(t=>`<i>${t}</i>`).join("")}</div></div>`).join("");
 $("#yr").textContent=new Date().getFullYear();
 
