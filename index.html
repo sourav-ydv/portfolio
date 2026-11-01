@@ -135,6 +135,12 @@ nav a{transition:opacity .2s}nav a:hover{opacity:.7}
 .grid{border-top:1px solid var(--line);padding-top:1.4rem}
 .stats{gap:2rem}.stats b{font-size:clamp(1.4rem,2.6vw,2.2rem);font-weight:700}
 .tags i{background:rgba(215,226,234,.05)}
+#stack{display:grid;grid-template-columns:repeat(12,1fr);gap:1.25rem;max-width:80rem;margin:0 auto}
+.card{position:static;grid-column:span 12;display:flex;flex-direction:column;transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-4px);border-color:rgba(215,226,234,.4)}
+.grid{flex:1}.grid>.col{display:flex!important;flex-direction:column}.tall{grid-row:auto!important}
+.top .num{font-size:clamp(2.5rem,5vw,4.5rem)!important}
+@media(min-width:900px){.card:nth-child(4n+1),.card:nth-child(4n+4){grid-column:span 7}.card:nth-child(4n+2),.card:nth-child(4n+3){grid-column:span 5}}
 /* research + contact */
 .research{max-width:64rem;margin:5rem auto 0;border:2px solid var(--ink);border-radius:40px;padding:2rem}
 @media(min-width:768px){.research{border-radius:60px;padding:3rem}}
@@ -173,7 +179,7 @@ footer{font-weight:300;font-size:.8rem;opacity:.5;padding-bottom:1.5rem;text-ali
   <div class="deco d3 fade" style="--d:.15s;--y:0"></div><div class="deco d4 fade" style="--d:.3s;--y:0"></div>
   <div>
     <h2 class="hero-heading h2 fade" style="--y:40px">About me</h2>
-    <p class="reveal" id="reveal">Final-year CSE student at IIIT Manipur. I build machine learning models and LLM-powered products end to end: from messy data and feature engineering, to explainable models, to APIs that people can actually use. Co-author of a research paper accepted at WABI 2026. Let's build something useful together!</p>
+    <p class="reveal" id="reveal">Final-year CSE student at IIIT Senapati, Manipur. I build machine learning models and LLM-powered systems end to end, and I like testing them honestly: breaking agent tools on purpose, fine-tuning small models that run on a laptop, and reporting results even when they go against my guess. Co-author of a research paper accepted at WABI 2026. Let's build something useful together!</p>
   </div>
   <a class="btn" href="Sourav_Yadav_Resume.pdf" target="_blank" rel="noopener">View Resume</a>
 </section>
@@ -210,11 +216,11 @@ footer{font-weight:300;font-size:.8rem;opacity:.5;padding-bottom:1.5rem;text-ali
 <script>
 const $=s=>document.querySelector(s);
 // ---- data
-const R1=["Python","PyTorch","Scikit-learn","XGBoost","SHAP","Pandas","NumPy","TensorFlow","SQL","C++","Jupyter"];
-const R2=["LangChain","LangGraph","RAG","FastAPI","PostgreSQL","Pydantic","Docker","React","Git","MCP","Pytest","Render","Vercel"];
+const R1=["Python","PyTorch","Scikit-learn","XGBoost","SHAP","Pandas","NumPy","TensorFlow","SQL","C++","QLoRA","Jupyter"];
+const R2=["LangChain","LangGraph","RAG","FastAPI","PostgreSQL","Pydantic","Docker","React","Git","MCP","llama.cpp","Pytest","Render","Vercel"];
 const SVC=[
-["ML Modelling","Feature engineering, imbalanced-data training, ensembles and honest evaluation with scikit-learn, XGBoost and PyTorch."],
-["LLM & RAG Apps","Retrieval pipelines and tool-calling agents with LangChain and LangGraph, with guardrails such as human approval before any action."],
+["ML Modelling","Feature engineering, imbalanced-data training, ensembles and QLoRA fine-tuning of small models, with honest evaluation using scikit-learn, XGBoost and PyTorch."],
+["LLM & RAG Apps","Retrieval pipelines and tool-calling agents with LangChain and LangGraph, plus cost-aware routing: a small local model answers first and checks decide when to call a big one."],
 ["Agent Reliability & Testing","Fault injection, state-based safety checks and regression tests for tool-calling agents, so failures are measured instead of guessed."],
 ["Backend & APIs","FastAPI services with JWT auth, PostgreSQL storage and typed schemas, plus MCP tool servers, with CI and deployment on Render, Vercel and Streamlit Cloud."],
 ["Explainable AI & Research","SHAP, knowledge-graph grounding, careful ablations and honest statistics such as confidence intervals and significance tests. Co-authored research accepted at WABI 2026."]];
@@ -226,11 +232,16 @@ const V=[
 `<div class="bub me">Delhi to Dimapur, 24-31 Oct, 15k excluding flights</div><div class="bub">Found 5 flights. IndiGo is about 9k each way.</div><div class="cf"><b>Confirmation needed</b><br>IndiGo, DEL to DMU, 24 Oct<div><em>Approve</em><em>Decline</em></div></div>`,
 `<div style="display:flex;gap:.4rem;flex-wrap:wrap"><span class="pill">Diabetes</span><span class="pill o">Heart</span><span class="pill o">Parkinson's</span></div><div class="bub">Glucose &nbsp; 120</div><div class="bub">BMI &nbsp; 26.4</div><span class="pill">Predict</span><div class="bub">Upload a report and HealthBot explains it in plain language.</div>`];
 const PRJ=[
-{h:200,cat:"AI Agent Reliability",name:"Havoc: Fault Injection for AI Agents",gh:gh("havoc"),live:"https://sourav-ydv.github.io/havoc/",
- stats:[["411","fault-injection runs"],["8","state safety checks"],["48% → 10%","false refund claims"]],
- tags:["Python","MCP","asyncio","SQLite","pytest","GitHub Actions","Gemini"],
- d:"A chaos-testing tool for AI agents. It sits between an agent and its MCP tools, breaks them on purpose, and checks the final database state instead of trusting the agent's answer.",
- l:["Injects 6 kinds of faults, including timeouts, partial results and prompt injections, and shrinks failing fault combinations with delta debugging","Found that pairs of faults did not break the tested agent more than single faults; only 1 failure truly needed both","Found false refund emails in 25-48% of failing runs; a one-rule prompt fix cut it to 0-10%","Offline regression cases, 320+ tests, CI on every push and a report page with replayable failures"]},
+{h:200,cat:"AI Agent Reliability",name:"Havoc: Fault Injection for AI Agents",gh:gh("havoc"),live:"https://sourav-ydv.github.io/havoc/",ll:"Report",
+ stats:[["411","fault-injection runs"],["9","state safety checks"],["48% → 10%","false refund claims"]],
+ tags:["Python","MCP","asyncio","SQLite","pytest","GitHub Actions","Gemini","Groq"],
+ d:"A chaos-testing tool for AI agents. A proxy sits between an agent and its MCP tools and injects faults, then nine safety checks read the final database instead of trusting the agent's answer.",
+ l:["Injects 6 kinds of faults, shrinks failing fault combinations with delta debugging, and re-runs failures to separate real from flaky","Pairs of faults did not break the agent more than single faults; only 1 of 13 failing pairs truly needed both","Found false refund emails in 25-48% of failing runs; a one-rule prompt fix cut them to 10% and 0%, and an opt-in guard blocked the false email","Checked on a second model, where neither headline finding reproduced. 383 tests, CI, and offline replay with no API key"]},
+{h:25,cat:"Small-Model Routing",name:"Receipt Router: Small Model First",gh:gh("receipt-router"),live:"https://huggingface.co/sourav-ydv25/receipt-student-gguf",ll:"Model",
+ stats:[["1.5B","model, CPU only"],["143/150","totals right with router"],["83%","kept by the small model"]],
+ tags:["Python","QLoRA","Unsloth","Qwen2.5-1.5B","llama.cpp","GGUF","FastAPI","Groq","Tesseract"],
+ d:"Turns receipts into JSON with a 1.5B model on a laptop. Simple arithmetic and grounding checks decide whether to trust it; failures go to a 120B model.",
+ l:["Fine-tuned Qwen2.5-1.5B with QLoRA on checked labels from Indonesian and Malaysian receipts, then quantized to GGUF","A price misread by 100x still adds up, so every amount must also appear on the page","On 150 held-out receipt photos (Tesseract OCR) the router got 111 totals right against 98 for the small model alone","Reported honestly: choosing hard receipts did not beat random data, and it is not claimed to beat the big model"]},
 {h:285,cat:"Machine Learning",name:"AI-Powered Fraud Detection System",gh:gh("fraud-detection-system"),live:"https://fraud-detection-system-wheat.vercel.app",
  stats:[["≈0.98","AUC-ROC"],["284K+","transactions"],["11","engineered features"]],
  tags:["XGBoost","Random Forest","Neural Net","SHAP","FastAPI","PostgreSQL","React"],
@@ -257,13 +268,13 @@ const tile=(t,i)=>`<div class="tile" style="--h:${(i*37+270)%360}">${t}</div>`;
 const fill=(el,a)=>el.innerHTML=[0,1,2].map(()=>a.map(tile).join("")).join("");
 fill($("#r1"),R1);fill($("#r2"),R2);
 $("#svc").innerHTML=SVC.map((s,i)=>`<div class="item fade" style="--d:${i*.1}s"><div class="num">0${i+1}</div><div><h3>${s[0].replace("&","&amp;")}</h3><p>${s[1]}</p></div></div>`).join("");
-$("#stack").innerHTML=PRJ.map((p,i)=>`<div class="stack"><article class="card" style="top:calc(var(--t,5rem) + ${i*28}px);--h:${p.h}">
+$("#stack").innerHTML=PRJ.map((p,i)=>`<article class="card" style="--h:${p.h}">
 <div class="top"><div class="num" style="font-size:clamp(3rem,10vw,140px);font-weight:900;line-height:.9">0${i+1}</div><div><small>${p.cat}</small><h3>${p.name}</h3></div>
-<div class="btns">${p.live?`<a class="ghost" href="${p.live}" target="_blank" rel="noopener">Live Project</a>`:""}<a class="ghost" href="${p.gh}" target="_blank" rel="noopener">GitHub</a></div></div>
+<div class="btns">${p.live?`<a class="ghost" href="${p.live}" target="_blank" rel="noopener">${p.ll||"Live Project"}</a>`:""}<a class="ghost" href="${p.gh}" target="_blank" rel="noopener">GitHub</a></div></div>
 <div class="grid"><div class="col"><div class="col"><div class="blk stats">${p.stats.map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div>
 <div class="blk"><div class="tags">${p.tags.map(t=>`<i>${t}</i>`).join("")}</div></div></div>
-<div class="blk tall"><p>${p.d}</p><ul>${p.l.map(x=>`<li>${x}</li>`).join("")}</ul></div></div></div></article></div>`).join("");
-const SK=[["Languages",["Python","SQL","C++","C","JavaScript"]],["Data & ML",["Pandas","NumPy","Scikit-learn","XGBoost","PyTorch","TensorFlow","SHAP","Feature Engineering","Model Evaluation","Statistical Testing"]],["LLM / GenAI",["LLM APIs","Embeddings","RAG Pipelines","Prompt Engineering","LangChain","LangGraph","MCP","Agent Evaluation","Fault Injection"]],["Backend & Databases",["FastAPI","REST APIs","Pydantic","PostgreSQL","MongoDB","SQLite","SQLAlchemy","asyncio"]],["Tools & Deployment",["Git","Docker","Jupyter","pytest","GitHub Actions","GitHub Pages","Render","Vercel"]]];
+<div class="blk tall"><p>${p.d}</p><ul>${p.l.map(x=>`<li>${x}</li>`).join("")}</ul></div></div></div></article>`).join("");
+const SK=[["Languages",["Python","SQL","C++","C","JavaScript"]],["Data & ML",["Pandas","NumPy","Scikit-learn","XGBoost","PyTorch","TensorFlow","SHAP","Feature Engineering","Model Evaluation","Statistical Testing","QLoRA Fine-tuning","Model Distillation","OCR"]],["LLM / GenAI",["LLM APIs","Embeddings","RAG Pipelines","Prompt Engineering","LangChain","LangGraph","MCP","Agent Evaluation","Fault Injection","Model Routing","Quantization (GGUF)","llama.cpp"]],["Backend & Databases",["FastAPI","REST APIs","Pydantic","PostgreSQL","MongoDB","SQLite","SQLAlchemy","asyncio"]],["Tools & Deployment",["Git","Docker","Jupyter","pytest","GitHub Actions","GitHub Pages","Hugging Face","Kaggle","Render","Vercel"]]];
 $("#sk").innerHTML=SK.map(g=>`<div class="grp fade"><h4>${g[0].replace("&","&amp;")}</h4><div class="tags">${g[1].map(t=>`<i>${t}</i>`).join("")}</div></div>`).join("");
 $("#yr").textContent=new Date().getFullYear();
 
@@ -287,7 +298,7 @@ addEventListener("mousemove",e=>{const r=mg.getBoundingClientRect();
  mg.style.transform=near?`translate3d(${dx/STR}px,${dy/STR}px,0)`:"translate3d(0,0,0)"},{passive:true});
 
 // ---- scroll-driven effects
-const marq=$("#marq"),r1=$("#r1"),r2=$("#r2"),stackEl=$("#stack"),cards=[...document.querySelectorAll(".card")];
+const marq=$("#marq"),r1=$("#r1"),r2=$("#r2"),stackEl=$("#stack"),cards=[];
 const hs=[],measure=()=>cards.forEach((c,i)=>hs[i]=c.offsetHeight);
 const clamp=v=>Math.max(0,Math.min(1,v));
 function onScroll(){
